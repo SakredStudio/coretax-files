@@ -1,0 +1,4 @@
+TaxPeriodMonth;TaxPeriodYear;CounterpartTin;IDPlaceOfBusinessActivityOfIncomeRecipient;TaxCertificate;TaxObjectCode;TaxBase;Rate;Document;DocumentNumber;DocumentDate;IDPlaceOfBusinessActivity;GovTreasurerOpt;SP2DNumber;WithholdingDate
+11;2026;0987654321098765;0987654321098765000000;N/A;24-104-05;25.000.000;2;CommercialInvoice;INV/2026/0412;03/11/2026;;;;10/11/2026
+11;2026;0111222333444555;;;24-100-02;12.000.000;10;CommercialInvoice;SEWA-2026-11;01/11/2026;;;;05/11/2026
+11;2026;0222333444555666;;PP23;28-423-01;8.500.000;0,5;TaxInvoice;04002600000456789;07/11/2026;;;;12/11/2026

@@ -1,0 +1,4 @@
+InvoiceNumber;SellerTIN;ReturnDate;Type;Name;Code;Quantity;Unit;UnitPrice;STLGRate;ReturnQuantity;ReturnDiscount;ReturnTaxBase;ReturnOtherTaxBase;VATRate;ReturnVAT;ReturnSTLG
+04002600000123456;0987654321098765;10/11/2026;A;Kertas A4 80 gram (rim);;10;UM.0021;150.000;0;2;0;300.000;275.000;12;33.000;0
+04002600000123456;0987654321098765;10/11/2026;A;Tinta printer hitam;;5;UM.0018;80.000;;1;;;;;;
+04002600000987654;0111222333444555;12/11/2026;A;Kursi kantor;;4;UM.0018;650.000;;1;50.000;;550.000;12;;

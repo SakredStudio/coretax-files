@@ -1,0 +1,50 @@
+name: A file was built wrongly or Coretax rejected it
+description: Tell us what went wrong. Do NOT attach or paste real tax data.
+labels: [layout]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Never attach, paste or screenshot a real invoice list, payroll list or XML file.** They hold tax numbers, names and amounts.
+        Describe the problem in words. If an example row is needed, change every name, number and amount first.
+  - type: dropdown
+    id: type
+    attributes:
+      label: Which file type?
+      options:
+        - Faktur Pajak Keluaran
+        - Retur Faktur Pajak Masukan
+        - BPPU
+        - BP21
+        - BPMP
+        - Another file type
+    validations:
+      required: true
+  - type: dropdown
+    id: where
+    attributes:
+      label: Where did it go wrong?
+      options:
+        - This tool showed an error or warning that looks wrong
+        - This tool passed the file but Coretax rejected it
+        - A value in the XML is wrong
+        - Other
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: For example the message this tool showed, or the exact message Coretax showed after the import.
+    validations:
+      required: true
+  - type: textarea
+    id: field
+    attributes:
+      label: Which column or element?
+      description: Column or element names only, no real values.
+  - type: checkboxes
+    id: private
+    attributes:
+      label: Privacy
+      options:
+        - label: I have not attached or pasted real tax data, and any example row has made-up values.
+          required: true

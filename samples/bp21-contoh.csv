@@ -1,0 +1,3 @@
+TaxPeriodMonth;TaxPeriodYear;CounterpartTin;IDPlaceOfBusinessActivityOfIncomeRecipient;StatusTaxExemption;TaxCertificate;TaxObjectCode;Gross;Deemed;Rate;Document;DocumentNumber;DocumentDate;IDPlaceOfBusinessActivity;WithholdingDate
+11;2026;9999010101900001;;TK/0;;21-100-35;6.000.000;100;0,5;CommercialInvoice;HONOR-2026-031;14/11/2026;;14/11/2026
+11;2026;9999020202850002;;K/1;;21-100-34;15.000.000;50;5;CommercialInvoice;JASA-2026-118;09/11/2026;;10/11/2026

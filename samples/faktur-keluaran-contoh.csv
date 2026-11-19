@@ -1,0 +1,5 @@
+Ref;TaxInvoiceDate;TrxCode;BuyerDocument;BuyerTin;BuyerCountry;BuyerDocumentNumber;BuyerName;BuyerAdress;BuyerEmail;BuyerIDTKU;Opt;Code;Name;Unit;Price;Qty;TotalDiscount;TaxBase;OtherTaxBase;VATRate;VAT;STLGRate;STLG
+INV-001;03/11/2026;04;TIN;0987654321098765;IDN;;PT Contoh Maju Jaya;Jl. Contoh No. 1, Jakarta Selatan;keuangan@contoh.example;0987654321098765000000;A;;Kertas A4 80 gram (rim);UM.0021;150.000;10;0;1.500.000;1.375.000;12;165.000;0;0
+INV-001;03/11/2026;04;TIN;0987654321098765;IDN;;PT Contoh Maju Jaya;Jl. Contoh No. 1, Jakarta Selatan;keuangan@contoh.example;0987654321098765000000;B;;Jasa pengiriman;UM.0033;600.000;2;;;;;;;
+INV-002;05/11/2026;04;National ID;;;9999010101900001;Budi Contoh;Jl. Mawar No. 7, Bandung;;;A;;"Meja kerja ""Seri A"" & kursi";UM.0018;250.000;4;50.000;;;;;;
+INV-003;07/11/2026;01;TIN;0111222333444555;IDN;;PT Sampel Mewah Abadi;Jl. Sampel No. 9, Surabaya;;0111222333444555000000;A;;Barang mewah contoh;UM.0018;50.000.000;1;0;50.000.000;50.000.000;12;6.000.000;20;10.000.000

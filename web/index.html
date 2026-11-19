@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Coretax Files</title>
+<meta name="description" content="Periksa daftar faktur, retur atau bukti potong dan buat file XML untuk impor ke Coretax. Berjalan di browser; data tidak dikirim ke mana pun.">
+<style>
+  :root {
+    --bg: #f5f3ee; --panel: #ffffff; --ink: #1b1c1f; --muted: #666a73; --line: #dcd9d0;
+    --accent: #1f4fa3; --accent-ink: #ffffff;
+    --err-bg: #fde8e6; --err-ink: #8a1c12; --warn-bg: #fff4d6; --warn-ink: #6b4a00;
+    --ok-bg: #e2f3ea; --ok-ink: #0b5a41; --info-bg: #e9eef8; --info-ink: #27437a;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #14151a; --panel: #1e2027; --ink: #ecebe6; --muted: #a0a3ac; --line: #33363f;
+      --accent: #7ea6f0; --accent-ink: #0d1626;
+      --err-bg: #3d1a17; --err-ink: #f5b3ab; --warn-bg: #3a2f10; --warn-ink: #f3d98b;
+      --ok-bg: #153326; --ok-ink: #9fe0c3; --info-bg: #1c2740; --info-ink: #b9cdf5;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.5 system-ui, "Segoe UI", Roboto, sans-serif; }
+  main { max-width: 1280px; margin: 0 auto; padding: 28px 16px 64px; }
+  .top { display: flex; justify-content: space-between; align-items: start; gap: 16px; flex-wrap: wrap; }
+  h1 { font-size: clamp(1.6rem, 3vw, 2.2rem); margin: 0 0 6px; letter-spacing: -0.01em; }
+  h2 { font-size: 1.05rem; margin: 28px 0 10px; }
+  .lede { color: var(--muted); margin: 0 0 20px; max-width: 64ch; }
+  .lang { display: flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+  .lang button { background: var(--panel); color: var(--muted); border: 0; border-radius: 0; padding: 6px 12px; font-weight: 600; }
+  .lang button[aria-pressed=true] { background: var(--accent); color: var(--accent-ink); }
+  .early { background: var(--warn-bg); color: var(--warn-ink); border-radius: 10px; padding: 10px 14px; font-size: .92rem; margin: 0 0 20px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; margin-bottom: 14px; }
+  label.field { display: grid; gap: 4px; font-size: .9rem; color: var(--muted); }
+  input[type=text], select { font: inherit; padding: 9px 12px; border: 1px solid var(--line); border-radius: 8px; background: var(--panel); color: var(--ink); width: 100%; font-variant-numeric: tabular-nums; }
+  .drop { display: block; background: var(--panel); border: 2px dashed var(--line); border-radius: 14px; padding: 30px 20px; text-align: center; cursor: pointer; transition: border-color .15s; }
+  .drop:hover, .drop.over, .drop:focus-within { border-color: var(--accent); }
+  .drop strong { display: block; font-size: 1.1rem; }
+  .drop span { color: var(--muted); font-size: .92rem; }
+  .drop input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+  .small { color: var(--muted); font-size: .88rem; margin: 10px 2px 0; }
+  button { font: inherit; font-weight: 600; padding: 10px 18px; border: 0; border-radius: 8px; background: var(--accent); color: var(--accent-ink); cursor: pointer; }
+  button:disabled { opacity: .45; cursor: not-allowed; }
+  button.link { background: none; color: var(--accent); padding: 4px 6px; text-decoration: underline; }
+  button:focus-visible, input:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+  .summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin: 24px 0 14px; }
+  .tile { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; }
+  .tile small { color: var(--muted); display: block; font-size: .8rem; }
+  .tile b { font-size: 1.2rem; font-variant-numeric: tabular-nums; }
+  .verdict { border-radius: 10px; padding: 12px 14px; margin: 0 0 12px; font-weight: 600; }
+  .verdict.ok { background: var(--ok-bg); color: var(--ok-ink); }
+  .verdict.error { background: var(--err-bg); color: var(--err-ink); }
+  .bar { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 6px; }
+  ul.findings { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+  ul.findings li { border-radius: 8px; padding: 8px 12px; font-size: .93rem; display: grid; grid-template-columns: minmax(120px, max-content) 1fr; gap: 12px; }
+  ul.findings li .where { font-variant-numeric: tabular-nums; font-weight: 600; }
+  li.error { background: var(--err-bg); color: var(--err-ink); }
+  li.warning { background: var(--warn-bg); color: var(--warn-ink); }
+  li.info { background: var(--info-bg); color: var(--info-ink); }
+  .scroll { overflow-x: auto; background: var(--panel); border: 1px solid var(--line); border-radius: 12px; }
+  table { border-collapse: collapse; width: 100%; font-size: .88rem; }
+  th, td { padding: 7px 12px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { font-size: .76rem; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); white-space: nowrap; }
+  td code { font-size: .86rem; }
+  tr:last-child td { border-bottom: 0; }
+  footer { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--line); color: var(--muted); font-size: .85rem; }
+  footer p { margin: 0 0 8px; }
+  footer a { color: var(--accent); }
+  [hidden] { display: none !important; }
+  @media (max-width: 560px) { ul.findings li { grid-template-columns: 1fr; gap: 2px; } }
+</style>
+</head>
+<body>
+<main>
+  <div class="top">
+    <div>
+      <h1>Coretax Files</h1>
+      <p class="lede" data-t="lede"></p>
+    </div>
+    <div class="lang" role="group" aria-label="Bahasa / Language">
+      <button type="button" data-lang="id">Indonesia</button>
+      <button type="button" data-lang="en">English</button>
+    </div>
+  </div>
+  <p class="early" data-t="early"></p>
+
+  <div class="grid">
+    <label class="field"><span data-t="typeLabel"></span>
+      <select id="type"></select>
+    </label>
+    <label class="field"><span id="ownTinLabel"></span>
+      <input type="text" id="sellerTin" inputmode="numeric" autocomplete="off" maxlength="24" placeholder="0000000000000000">
+    </label>
+    <label class="field" id="ownIdtkuField"><span id="ownIdtkuLabel"></span>
+      <input type="text" id="sellerIdtku" inputmode="numeric" autocomplete="off" maxlength="30" placeholder="0000000000000000000000">
+    </label>
+  </div>
+
+  <label class="drop" id="drop">
+    <input type="file" id="file" accept=".csv,text/csv">
+    <strong data-t="dropTitle"></strong>
+    <span id="dropHint"></span>
+  </label>
+  <p class="small">
+    <span data-t="privacy"></span>
+    <button type="button" class="link" id="sample" data-t="trySample"></button>
+    <button type="button" class="link" id="template" data-t="getTemplate"></button>
+  </p>
+
+  <section id="result" hidden>
+    <div class="summary" id="summary"></div>
+    <p class="verdict" id="verdict"></p>
+    <div class="bar">
+      <button type="button" id="download" data-t="download"></button>
+      <span class="small" id="fileNote" style="margin:0"></span>
+    </div>
+    <h2 id="findingsTitle" data-t="findingsTitle"></h2>
+    <ul class="findings" id="findings"></ul>
+  </section>
+
+  <h2 data-t="columnsTitle"></h2>
+  <p class="small" data-t="columnsIntro" style="margin:0 0 10px"></p>
+  <div class="scroll"><table><thead><tr><th data-t="colName"></th><th data-t="colNeed"></th><th data-t="colNote"></th></tr></thead><tbody id="columns"></tbody></table></div>
+
+  <footer>
+    <p data-t="footNot"></p>
+    <p data-t="footEarly"></p>
+    <p><a href="https://github.com/SakredStudio/coretax-files" data-t="footSource"></a> &middot; <a href="https://github.com/SakredStudio/coretax-files/issues/new/choose" data-t="footIssue"></a></p>
+    <p>MIT. &copy; 2026 17899181 CANADA INC. (Sakred Studio)</p>
+  </footer>
+</main>
+<script type="module" src="./app.js"></script>
+</body>
+</html>

@@ -1,0 +1,4 @@
+TaxPeriodMonth;TaxPeriodYear;CounterpartOpt;CounterpartPassport;CounterpartTin;StatusTaxExemption;Position;TaxCertificate;TaxObjectCode;Gross;Rate;IDPlaceOfBusinessActivity;WithholdingDate
+11;2026;;;9999010101900001;TK/0;Staf Administrasi;;21-100-01;7.500.000;1,25;;25/11/2026
+11;2026;Resident;;9999020202850002;K/2;Manajer Keuangan;;21-100-01;18.000.000;6;;25/11/2026
+11;2026;Foreign;X1234567;;TK/0;Konsultan Teknik;;21-100-32;40.000.000;20;;25/11/2026

@@ -1,0 +1,19 @@
+{
+  "name": "coretax-files",
+  "version": "0.1.0",
+  "description": "Checks a spreadsheet of sales invoices and builds the XML import file for Indonesia's Coretax. Runs fully in the browser; nothing is uploaded.",
+  "type": "module",
+  "license": "MIT",
+  "private": true,
+  "main": "src/index.js",
+  "scripts": {
+    "test": "node --test \"test/*.test.js\"",
+    "dev": "node dev/serve.mjs --port 8816",
+    "build": "node dev/build.mjs"
+  },
+  "author": "17899181 CANADA INC. (Sakred Studio)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SakredStudio/coretax-files.git"
+  }
+}

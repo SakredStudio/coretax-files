@@ -1,0 +1,9 @@
+node_modules/
+dist/
+# Real tax data must never be committed. Only the made-up file in samples/ is tracked.
+*.xml
+*.xlsx
+*.xls
+*.csv
+!samples/*-contoh.csv
+test/official/
