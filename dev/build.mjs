@@ -29,6 +29,9 @@ export async function build(outDir = join(root, 'dist'), id = buildId()) {
   // Made-up sample files for the "try with sample data" button.
   await cp(join(root, 'samples'), join(out, 'samples'), { recursive: true });
 
+  // Icons and the link-preview image (rarely change; plain URLs are fine for images).
+  await cp(join(root, 'web', 'icons'), join(out, 'icons'), { recursive: true });
+
   let html = await readFile(join(root, 'web', 'index.html'), 'utf8');
   const before = html;
   html = html

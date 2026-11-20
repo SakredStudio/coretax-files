@@ -23,7 +23,9 @@ test('hosted build: scripts sit under the per-deploy folder and every sample is 
     for (const file of files) assert.ok((await stat(join(out, file))).isFile(), file);
     // Nothing but the made-up samples may ship: no official files, no tests, no other data.
     assert.deepEqual((await readdir(join(out, 'samples'))).sort(), fileTypes.map((t) => `${t.id}-contoh.csv`).sort());
-    assert.deepEqual((await readdir(out)).sort(), ['.nojekyll', 'b', 'index.html', 'samples']);
+    assert.deepEqual((await readdir(out)).sort(), ['.nojekyll', 'b', 'icons', 'index.html', 'samples']);
+    // Icons + link-preview image only (2026-11-19).
+    assert.deepEqual((await readdir(join(out, 'icons'))).sort(), ['apple-touch-icon.png', 'favicon-32.png', 'icon-192.png', 'icon-512.png', 'social-preview.png']);
   } finally {
     await rm(out, { recursive: true, force: true });
   }

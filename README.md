@@ -1,5 +1,7 @@
 # Coretax Files
 
+![Coretax Files](docs/banner.jpg)
+
 Checks a spreadsheet of Indonesian tax invoices, returns or withholding slips and builds the XML file you import into Coretax (the Indonesian tax office system). The file is read in your browser; nothing is uploaded.
 
 | File type | XML root | Tax office sample it was matched against |
